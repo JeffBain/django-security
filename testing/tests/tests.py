@@ -45,6 +45,15 @@ def login_user(func):
     return wrapper
 
 
+class EncryptedStringTests(TestCase):
+    def test(self):
+        plaintext = "foo"
+        key = symmetric.key()
+        self.assertEqual(symmetric.decrypt(symmetric.encrypt(plaintext, key),
+                                           key),
+                         plaintext)
+
+
 class RequirePasswordChangeTests(TestCase):
     def test_require_password_change(self):
         """
